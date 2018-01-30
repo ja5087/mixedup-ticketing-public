@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+
+
+
+
+<html>
+<title>Mixed Up! Ticketing Site</title>
+<head>
+
+<%-include("style.ejs")%>
+</head>
+
+
+<body>
+
+<%- include("message") %>
+
+<main class="wrapper">
+
+<section class="container float-left" id="index">
+<form action="/login" method="post">
+<h3>Mixed Up! Ticketing Site</h3>
+  Username:<br>
+  <input type="text" name="username"><br>
+  Password:<br>
+  <input type="password" name="password">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+</section>
+</main>
+
+
+</body>
+
+
+</html>

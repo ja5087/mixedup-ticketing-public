@@ -1,0 +1,14 @@
+
+
+
+<br>Available Links:  
+<a href="/home" class="button button-small button-black">Home</a>
+<a href="/ticket" class="button button-small button-black">Ticketing</a>
+   <% if(user.role==2) { %>
+    <a href="/admin" class="button button-small button-black">Administration</a>
+    <a href="/allTickets" class="button button-small button-black">All Tickets</a>
+<% } %>
+
+<div class="float-right">
+Logged in as: <%=user.username%>.   <a href="/logout" class="button button-small button-clear button-blue">Logout</a>
+</div>

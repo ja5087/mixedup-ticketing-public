@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+
+<html>
+<title>Home | Ticketer</title>
+<head>
+
+<%-include("style.ejs")%>
+</head>
+
+
+<body>
+
+<main class="wrapper">
+
+<p><p>
+<section class="container" id="links">
+<%-include("header.ejs")%>
+</section>
+
+<section class="container" id="text">
+Welcome <%=user.username%>!
+
+This is the ticketing platform for Mixed Up! 2018. If you click on the Ticketing link above, you'll be taken to a page where you can add tickets by email. 
+<p> The system will automatically send a confirmation email once input.
+<p> If you have any questions, contact us at <a href="mailto:contactmixedup@gmail.com">contactmixedup@gmail.com</a>
+
+</section>
+<%-include("footer.ejs")%>
+</main>
+
+</body>
+
+
+</html>

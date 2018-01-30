@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+
+
+
+<% 
+//prerun scripts
+var ticketCount = 0;
+
+for(var i = 0; i < tickets.length; i++)
+{
+    if(tickets[i].deleted == 0) {
+        ticketCount++;
+    }
+}
+
+%>
+
+<html>
+<title>Ticketing</title>
+<head>
+
+<%-include("style.ejs")%>
+<script type="text/javascript" src="/static/deleteCell.js"></script>
+
+</head>
+
+
+<body>
+
+<main class="wrapper">
+
+<section class="container" id="header">
+<%- include("message") %>
+<%-include("header.ejs")%>
+
+</section>
+
+
+<p><p>
+
+<section class="container" id="addTicket">
+<br><b>Total Tickets Allocated: <%=user.allocatedTickets%></b>
+<p>
+<form action="/add" method="post">
+  Add new ticket by email: <br>
+  <input type="text" name="email"><br>
+  <input type="submit" value="Submit">
+</form>
+</section>
+
+<section class="container" id="tickets">
+<h4>Current Tickets</h4>
+<table class="table-compact">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Email</th>
+            <th>Confirmation Code</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% 
+        var idx=0;
+        for(var i = 0; i < tickets.length; i++) 
+            {
+                if(tickets[i].deleted == 0) {
+                    idx++;
+        %>
+            
+            <tr id="row_<%=tickets[i].confirmationCode%>">
+                <td><%=idx%></td>
+                <td><%=tickets[i].email%></td>
+                <td><%=tickets[i].confirmationCode%></td>
+                <td><button value="deleteButton" onclick="deleteTicket(this)" data-rowID="<%=tickets[i].confirmationCode%>" class="button-small">Delete</button></td>
+            </tr>
+        <%
+                }
+            }	
+        %>
+    </tbody>
+</table>
+Ticket Count: <%=ticketCount%>/<%=user.allocatedTickets%>
+</section>
+
+
+<section class="container" id="deletedTickets">
+<p><p>
+<h4>Deleted Tickets</h4>
+<table class="table-compact">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Confirmation Code</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% for(var i = 0; i < tickets.length; i++) 
+            {
+                if(tickets[i].deleted == 1) {
+        %>
+            <tr>
+                <td><%=tickets[i].email%></td>
+                <td><%=tickets[i].confirmationCode%></td>
+            </tr>
+        <%
+                }
+            }	
+        %>
+    </tbody>
+</table>
+</section>
+<%-include("footer.ejs")%>
+</main>
+</body>
+
+
+</html>

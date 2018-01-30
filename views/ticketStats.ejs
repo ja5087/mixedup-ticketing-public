@@ -1,0 +1,134 @@
+<% 
+
+function sumTicketStats(tStats) {
+    var sum = 0;
+
+    for(var y = 0; y < schools.length; y++) 
+    {  
+        sum += tStats[schools[y].username];
+    }
+    return sum;
+
+
+
+}
+
+function sumAllocatedTickets(x) {
+    var sum = 0;
+
+    for(var y = 0; y < schools.length; y++) 
+    {  
+        sum += schools[y].allocatedTickets;
+    }
+    return sum;
+}
+
+
+//for normal tstats
+var ticketStats = {};
+
+for(var y = 0; y < schools.length; y++) 
+    {  
+        ticketStats[schools[y].username] = 0;
+    }
+
+for(var y = 0; y < schools.length; y++) 
+    {   
+
+    for(var x = 0; x < tickets.length; x++) 
+        {
+            if(tickets[x].deleted == 0 && tickets[x].school==schools[y].username)
+            {
+                ticketStats[schools[y].username]++;
+            }      
+        }
+    }    
+
+
+//for deleted tstats
+var deletedTicketStats = {};
+
+for(var y = 0; y < schools.length; y++) 
+    {  
+        deletedTicketStats[schools[y].username] = 0;
+    }
+
+for(var y = 0; y < schools.length; y++) 
+    {   
+
+    for(var x = 0; x < tickets.length; x++) 
+        {
+            if(tickets[x].deleted == 1 && tickets[x].school==schools[y].username)
+            {
+                deletedTicketStats[schools[y].username]++;
+            }      
+        }
+    }      
+%>
+
+<h5>Sold Tickets</h5>
+<table>
+    <thead>
+        <tr>
+            <th>School</th>
+            <th>Sold</th>
+            <th>Allocation</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% 
+        for(var i = 0; i < schools.length; i++) 
+            {
+        %>
+            
+            <tr>
+                <td><%=schools[i].username%></td>
+                <td><%=ticketStats[schools[i].username]%></td>
+                <td><%=schools[i].allocatedTickets%></td>
+            </tr>
+        <%
+                
+            }	
+        %>
+        
+        <tr>
+                <td><b>Total</b></td>
+                <td><b><%=sumTicketStats(ticketStats)%></b></td>
+                <td><b><%=sumAllocatedTickets(schools)%></b></td>
+        </tr>
+         
+    </tbody>
+</table>
+
+<p><p><h5>Deleted Tickets</h5>
+<table>
+    <thead>
+        <tr>
+            <th>School</th>
+            <th>Deleted</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% 
+        for(var i = 0; i < schools.length; i++) 
+            {
+        %>
+            
+            <tr>
+                <td><%=schools[i].username%></td>
+                <td><%=deletedTicketStats[schools[i].username]%></td>
+            </tr>
+        <%
+                
+            }	
+        %>
+        
+        <tr>
+                <td><b>Total</b></td>
+                <td><b><%=sumTicketStats(deletedTicketStats)%></b></td>
+        </tr>
+         
+    </tbody>
+</table>

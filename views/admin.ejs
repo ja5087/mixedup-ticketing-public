@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+
+<html>
+<title>Administration</title>
+<head>
+
+<%-include("style.ejs")%>
+<script type="text/javascript">
+
+
+    //initialize delete tickets
+    function deleteTicket(cell) {
+        var row = document.getElementById("row_"+cell.getAttribute('data-rowID'));
+        console.log(row);
+
+        var confirmationCode = row.cells[1].innerHTML;
+        var req = new XMLHttpRequest();
+        req.open('POST', '/delete',true );
+        req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        
+        req.addEventListener("load", transferComplete); 
+        function transferComplete(e) {
+            if(req.status==500) {
+                document.getElementById("flashbar").innerHTML = req.statusText;
+            } else {
+                location.reload(true);
+            }
+        }
+            
+        req.send(JSON.stringify({'confirmationCode':confirmationCode}));
+        
+
+            
+			
+    }
+
+    
+    
+    
+</script>
+</head>
+
+
+<body>
+
+<main class="wrapper">
+<section class="container" id="message">
+<%-include("message.ejs")%>
+</section>
+<section class="container" id="header">
+<%-include("header.ejs")%>
+</section>
+
+<section class="container" id="ticketing">
+<h3>Ticketing</h3>
+<%-include("ticketStats.ejs")%>
+<a href="/allTickets" class="button">View All Tickets</a>
+</section>
+
+
+<section class="container" id="allocations">
+<br><h3>Change Allocations:</h3> 
+
+<form action="/adjustAllocation" method="post">
+    School Name: 
+    <select name="schoolName" id="allocationSchoolList">
+
+    <% for(var x = 0; x < schools.length; x++) {
+        %> 
+        
+        <option value="<%=schools[x].username%>"><%=schools[x].username%></option>
+        
+        <%    } %>
+
+    </select><br>
+    New Allocation (number):
+    <input type="number" name="newAllocation"><br>
+    <input type="submit" value="Submit">
+</form>
+</section>
+
+
+
+<section class="container" id="resetPassword">
+<h3>Reset Password</h3>
+<form action="/changepw" method="post">
+    School Name:
+    <select name="schoolName" id="passwordSchoolList">
+    <% for(var x = 0; x < schools.length; x++) {
+        %> 
+        
+        <option value="<%=schools[x].username%>"><%=schools[x].username%></option>
+        
+        <%    } %>
+    </select><br>
+    New Password:
+    <input type="text" name="newPassword"><br>
+    <input type="submit" value="Submit">
+</form>
+</section>
+
+<section class="container" id="addSchool">
+<h3>Add new school</h3>
+<form action="/signup" method="post">
+    School Name: 
+    <input type="text" name="schoolName"><br>
+    Password:
+    <input type="text" name="newPassword"><br>
+    Ticket Allocation:
+    <input type="number" name="allocatedTickets"><br>
+    <input type="submit" value="Submit">
+</form>
+</section>
+
+<section class="container" id="deleteSchool">
+<h3>Delete School</h3>
+(Warning: Destructive. Will delete all associated tickets)
+<form action="/deleteUser" method="post">
+    School Name:
+    <select name="schoolName" id="passwordSchoolList">
+    <% for(var x = 0; x < schools.length; x++) {
+        if(schools[x].username != "NIST")
+            {
+        %> 
+        
+        <option value="<%=schools[x].username%>"><%=schools[x].username%></option>
+        
+        <%   
+            }
+        } %>
+    </select><br>
+    <input type="submit" value="Submit">
+</form>
+</section>
+<%-include("footer.ejs")%>
+</main>
+
+
+</body>
+
+
+</html>
