@@ -16,6 +16,5 @@ Nodemailer as the mail agent
 
 ## Future plans
 - Detach the login for contactmixedup@gmail.com into a mail_credentials.json file or something and add it to .gitignore. Also add the credentials as a setting.
-- Salt the passwords.
 - Write some tests.
 - Extend this ticketing system so it can be used for other systems.
