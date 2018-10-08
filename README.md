@@ -1,7 +1,7 @@
 # mixedup-ticketing
 
 ## Introduction
-This is a web platform for ticketing, written especially for the Mixed Up! concert event:
+This is a web platform for ticketing, written especially for the [Mixed Up! concert](https://www.facebook.com/mixedupconcert/) event:
 
 Essentially it can keep track of tickets by email, and will generate and email a unique confirmation code to each ticket input into the system. The administrator account (“NIST”) can also view all the tickets currently available and allocate tickets to each user account (school).
 
